@@ -1,4 +1,4 @@
-package com.tehseen.quizapp.presentation.edit
+package com.tehseen.quizapp.presentation.deck
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,13 +10,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.tehseen.quizapp.presentation.edit.components.Header
-import com.tehseen.quizapp.presentation.edit.components.QandA
-import com.tehseen.quizapp.presentation.edit.components.UpdateButton
+import com.tehseen.quizapp.presentation.deck.components.FlashColumn
+import com.tehseen.quizapp.presentation.deck.components.Header
+import com.tehseen.quizapp.presentation.deck.components.SaveDeckButton
+import com.tehseen.quizapp.presentation.deck.components.Title
 
 @Preview(showSystemUi = true)
 @Composable
-fun EditFlashcard(){
+fun DeckScreen(){
     Column(
         modifier = Modifier.fillMaxSize()
             .padding(16.dp)
@@ -24,8 +25,11 @@ fun EditFlashcard(){
     ){
         Header()
         Spacer(modifier = Modifier.height(16.dp))
-        QandA()
-        Spacer(modifier = Modifier.weight(1f))
-        UpdateButton()
+        Title()
+        Spacer(modifier = Modifier.height(10.dp))
+        Column(modifier = Modifier.weight(1f)){
+            FlashColumn()
+        }
+        SaveDeckButton()
     }
 }

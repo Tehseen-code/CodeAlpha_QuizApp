@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 fun Info(){
     Column(
         modifier = Modifier.fillMaxWidth()
-            .padding(16.dp)
     ){
         Text(
             text = "Review your study cards",

@@ -1,6 +1,8 @@
 package com.tehseen.quizapp.presentation.deck.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -37,5 +39,21 @@ fun Title(){
             label = { Text("Deck Title") },
             modifier = Modifier.fillMaxWidth()
         )
+        Spacer(modifier = Modifier.height(20.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ){
+            Text(
+                text = "FlashCards",
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color.Black
+            )
+            Text(
+                text = "2 CARDS",
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color.Blue
+            )
+        }
     }
 }

@@ -26,12 +26,13 @@ fun SaveDeckButton(){
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ){
+        Spacer(modifier = Modifier.height(12.dp))
         Text(
             text = "+ Add Another Card",
             style = MaterialTheme.typography.bodyMedium,
             color = Color.Blue
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(12.dp))
         Button(
             onClick = {  },
             modifier = Modifier

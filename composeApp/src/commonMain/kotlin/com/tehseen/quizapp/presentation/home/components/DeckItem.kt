@@ -24,7 +24,9 @@ import androidx.compose.ui.unit.dp
 
 @Preview(showSystemUi = true)
 @Composable
-fun DeckItem(){
+fun DeckItem(
+    deck: Deck
+){
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(8.dp),
@@ -37,7 +39,7 @@ fun DeckItem(){
                 .padding(12.dp)
         ) {
             Text(
-                text = "Deck Title",
+                text = deck.title,
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.Black,
                 fontWeight = FontWeight.Bold
@@ -49,7 +51,7 @@ fun DeckItem(){
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "12 Cards",
+                    text = deck.count,
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Icon(

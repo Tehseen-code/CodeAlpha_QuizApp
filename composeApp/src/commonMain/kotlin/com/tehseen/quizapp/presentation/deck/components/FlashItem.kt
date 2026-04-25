@@ -27,11 +27,13 @@ import androidx.compose.ui.unit.dp
 
 @Preview(showSystemUi = true)
 @Composable
-fun FlashItem(){
-    var question by remember { mutableStateOf("") }
-    var answer by remember { mutableStateOf("") }
+fun FlashItem(
+    flashCard: FlashCard
+){
+    /*var question by remember { mutableStateOf("") }
+    var answer by remember { mutableStateOf("") }*/
     Card(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(8.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
@@ -58,15 +60,15 @@ fun FlashItem(){
             }
             Spacer(modifier = Modifier.height(6.dp))
             OutlinedTextField(
-                value = question,
-                onValueChange = {question=it},
+                value = flashCard.question,
+                onValueChange = {flashCard.question=it},
                 label = { Text("Question") },
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(6.dp))
             OutlinedTextField(
-                value = answer,
-                onValueChange = {answer=it},
+                value = flashCard.answer,
+                onValueChange = {flashCard.answer=it},
                 label = { Text("Answer") },
                 maxLines = 4,
                 modifier = Modifier.fillMaxWidth()
