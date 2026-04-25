@@ -26,13 +26,12 @@ fun Info(){
         Text(
             text = "Review your study cards",
             style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Bold,
             color = Color.Black
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = "Master your subjects with focused repetition and elegant study sessions.",
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.bodySmall,
             color = Color.Gray
         )
         Spacer(modifier = Modifier.height(16.dp))

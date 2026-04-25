@@ -31,7 +31,9 @@ import quizapp.composeapp.generated.resources.compose_multiplatform
 
 @Preview(showSystemUi = true)
 @Composable
-fun SplashScreen(){
+fun SplashScreen(
+    onNavigate: () -> Unit = {}
+){
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -48,6 +50,11 @@ fun SplashScreen(){
         )
         LaunchedEffect(Unit) {
             startAnimation = true
+        }
+        LaunchedEffect(progressAnimation){
+            if (progressAnimation >= 1f){
+                onNavigate()
+            }
         }
         Image(
             painter = painterResource(Res.drawable.compose_multiplatform),

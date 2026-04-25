@@ -17,7 +17,9 @@ import com.tehseen.quizapp.presentation.deck.components.Title
 
 @Preview(showSystemUi = true)
 @Composable
-fun DeckScreen(){
+fun DeckScreen(
+    onSaveDeckClick : () -> Unit
+){
     Column(
         modifier = Modifier.fillMaxSize()
             .padding(16.dp)
@@ -30,6 +32,8 @@ fun DeckScreen(){
         Column(modifier = Modifier.weight(1f)){
             FlashColumn()
         }
-        SaveDeckButton()
+        SaveDeckButton(
+            onSaveDeckClick = onSaveDeckClick
+        )
     }
 }

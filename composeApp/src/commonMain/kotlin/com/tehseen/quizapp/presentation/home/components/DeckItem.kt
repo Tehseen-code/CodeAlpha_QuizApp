@@ -1,5 +1,6 @@
 package com.tehseen.quizapp.presentation.home.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,10 +26,15 @@ import androidx.compose.ui.unit.dp
 @Preview(showSystemUi = true)
 @Composable
 fun DeckItem(
-    deck: Deck
+    deck: Deck,
+    onDeckClick : () -> Unit
 ){
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth()
+            .clickable(
+                onClick = onDeckClick
+            )
+        ,
         elevation = CardDefaults.cardElevation(8.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
@@ -57,7 +63,7 @@ fun DeckItem(
                 Icon(
                     imageVector = Icons.Default.ArrowForward,
                     contentDescription = "Next",
-                    tint = Color.Blue
+                    tint = Color.Blue,
                 )
             }
         }

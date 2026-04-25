@@ -17,7 +17,11 @@ import com.tehseen.quizapp.presentation.studySession.components.ShowAnswerButton
 
 @Preview(showSystemUi = true)
 @Composable
-fun StudySessionScreen(){
+fun StudySessionScreen(
+    onAddClick : () -> Unit ,
+    onEditClick : () -> Unit ,
+    onDeleteClick : () -> Unit
+){
     Column(
         modifier = Modifier.fillMaxWidth()
             .padding(16.dp)
@@ -29,6 +33,10 @@ fun StudySessionScreen(){
         Spacer(modifier = Modifier.height(20.dp))
         FlashcardComponent()
         Spacer(modifier = Modifier.height(20.dp))
-        ShowAnswerButton()
+        ShowAnswerButton(
+            onAddClick = onAddClick,
+            onEditClick = onEditClick,
+            onDeleteClick = onDeleteClick
+        )
     }
 }

@@ -1,5 +1,6 @@
 package com.tehseen.quizapp.presentation.home
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -14,17 +15,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.tehseen.quizapp.presentation.home.components.FlashCardExist
 import com.tehseen.quizapp.presentation.home.components.Header
 
 @Preview(showSystemUi = true)
 @Composable
-fun HomeScreen(){
+fun HomeScreen(onAddClick: () -> Unit,
+               onDeckClick : () -> Unit
+               ){
     Scaffold(
         modifier = Modifier.padding(16.dp).statusBarsPadding(),
         topBar = { Header() },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {},
+                onClick =onAddClick,
                 containerColor = Color(0xFF0056D2),
                 contentColor = Color.White,
                 shape = RoundedCornerShape(16.dp)
@@ -37,6 +41,12 @@ fun HomeScreen(){
             }
         }
     ){paddingValues ->
-
+        Box(
+            modifier = Modifier.padding(paddingValues)
+        ) {
+            FlashCardExist(
+                onDeckClick = onDeckClick
+            )
+        }
     }
 }

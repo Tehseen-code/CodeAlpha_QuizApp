@@ -31,7 +31,11 @@ import androidx.compose.ui.unit.dp
 
 @Preview(showSystemUi = true)
 @Composable
-fun ShowAnswerButton(){
+fun ShowAnswerButton(
+    onAddClick : () -> Unit ,
+    onEditClick : () -> Unit ,
+    onDeleteClick : () -> Unit
+){
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -77,7 +81,7 @@ fun ShowAnswerButton(){
                 horizontalArrangement = Arrangement.spacedBy(28.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(onClick = {  }) {
+                IconButton(onClick = onEditClick) {
                     Icon(
                         imageVector = Icons.Outlined.Edit,
                         contentDescription = "Edit",
@@ -86,7 +90,7 @@ fun ShowAnswerButton(){
                     )
                 }
 
-                IconButton(onClick = { }) {
+                IconButton(onClick = onAddClick) {
                     Icon(
                         imageVector = Icons.Default.Add,
                         contentDescription = "Add",
@@ -95,7 +99,7 @@ fun ShowAnswerButton(){
                     )
                 }
 
-                IconButton(onClick = {  }) {
+                IconButton(onClick = onDeleteClick) {
                     Icon(
                         imageVector = Icons.Outlined.Delete,
                         contentDescription = "Delete",

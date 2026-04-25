@@ -11,7 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DeckColumn(){
+fun DeckColumn(
+    onDeckClick : () -> Unit
+){
 
     val decks = remember {
         mutableStateListOf(
@@ -32,7 +34,10 @@ fun DeckColumn(){
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ){
         itemsIndexed(decks){index , deck ->
-            DeckItem(deck =deck)
+            DeckItem(
+                deck = deck,
+                onDeckClick = onDeckClick
+            )
         }
     }
 

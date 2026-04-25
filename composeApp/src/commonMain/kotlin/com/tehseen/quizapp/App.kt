@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.tehseen.quizapp.presentation.navigation.NavGraph
 import com.tehseen.quizapp.presentation.splash.SplashScreen
 import org.jetbrains.compose.resources.painterResource
 
@@ -24,6 +25,6 @@ import quizapp.composeapp.generated.resources.compose_multiplatform
 @Preview
 fun App() {
     MaterialTheme {
-        SplashScreen()
+        NavGraph()
     }
 }
