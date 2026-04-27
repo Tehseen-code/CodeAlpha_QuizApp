@@ -14,10 +14,14 @@ import androidx.compose.ui.unit.dp
 import com.tehseen.quizapp.presentation.add.components.Header
 import com.tehseen.quizapp.presentation.add.components.QuestionAnswer
 import com.tehseen.quizapp.presentation.add.components.SaveButton
+import com.tehseen.quizapp.presentation.add.presentation.AddUiState
 
 @Preview(showSystemUi = true)
 @Composable
-fun AddScreen(){
+fun AddScreen(
+    state: AddUiState,
+    onSaveCardClick : () -> Unit
+){
     Column(
         modifier = Modifier.fillMaxSize()
             .padding(16.dp)
@@ -25,8 +29,12 @@ fun AddScreen(){
     ){
         Header()
         Spacer(modifier = Modifier.height(16.dp))
-        QuestionAnswer()
+        QuestionAnswer(
+            state = state
+        )
         Spacer(modifier = Modifier.weight(1f))
-        SaveButton()
+        SaveButton(
+            onSaveCardClick = onSaveCardClick
+        )
     }
 }

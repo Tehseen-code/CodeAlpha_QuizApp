@@ -15,14 +15,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.tehseen.quizapp.presentation.home.components.Deck
 import com.tehseen.quizapp.presentation.home.components.FlashCardExist
 import com.tehseen.quizapp.presentation.home.components.Header
+import com.tehseen.quizapp.presentation.home.presentation.HomeUiState
 
 @Preview(showSystemUi = true)
 @Composable
-fun HomeScreen(onAddClick: () -> Unit,
-               onDeckClick : () -> Unit
-               ){
+fun HomeScreen(
+    state: HomeUiState,
+    onAddClick: () -> Unit,
+    onDeckClick : (Deck) -> Unit
+){
     Scaffold(
         modifier = Modifier.padding(16.dp).statusBarsPadding(),
         topBar = { Header() },
@@ -44,7 +48,11 @@ fun HomeScreen(onAddClick: () -> Unit,
         Box(
             modifier = Modifier.padding(paddingValues)
         ) {
+            if (state.isLoading){
+                // i will work on it later
+            }else
             FlashCardExist(
+                decks = state.decks,
                 onDeckClick = onDeckClick
             )
         }

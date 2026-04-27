@@ -7,31 +7,28 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.tehseen.quizapp.presentation.edit.presentation.EditUiState
 
 @Composable
-fun QandA(){
-    var question by remember { mutableStateOf("") }
-    var answer by remember { mutableStateOf("") }
+fun QandA(
+    state: EditUiState
+){
 
     Column(
         modifier = Modifier.fillMaxWidth()
     ){
         OutlinedTextField(
-            value = question,
-            onValueChange = {question=it},
+            value = state.question,
+            onValueChange = {state.question=it},
             label = { Text("Question") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(6.dp))
         OutlinedTextField(
-            value = answer,
-            onValueChange = {answer=it},
+            value = state.answer,
+            onValueChange = {state.answer=it},
             label = { Text("Answer") },
             maxLines = 4,
             modifier = Modifier.fillMaxWidth()

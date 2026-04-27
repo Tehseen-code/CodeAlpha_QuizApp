@@ -14,7 +14,8 @@ import androidx.compose.ui.unit.dp
 @Preview(showSystemUi = true)
 @Composable
 fun FlashCardExist(
-    onDeckClick : () -> Unit
+    decks: List<Deck>,
+    onDeckClick: (Deck) -> Unit
 ){
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -23,7 +24,8 @@ fun FlashCardExist(
         Info()
         Spacer(modifier = Modifier.height(16.dp))
         DeckColumn(
-            onDeckClick = onDeckClick
+            onDeckClick = onDeckClick,
+            decks = decks
         )
     }
 }

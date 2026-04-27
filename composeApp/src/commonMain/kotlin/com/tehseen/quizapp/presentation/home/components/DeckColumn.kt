@@ -12,23 +12,11 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun DeckColumn(
-    onDeckClick : () -> Unit
+    onDeckClick : (Deck) -> Unit,
+    decks : List<Deck>
 ){
 
-    val decks = remember {
-        mutableStateListOf(
-            Deck("C++","10 Cards"),
-            Deck("DSA","22 Cards"),
-            Deck("OOP","42 Cards"),
-            Deck("Programming Fundamentals","150 Cards"),
-            Deck("Kotlin","26 Cards"),
-            Deck("C++","10 Cards"),
-            Deck("DSA","22 Cards"),
-            Deck("OOP","42 Cards"),
-            Deck("Programming Fundamentals","150 Cards"),
-            Deck("Kotlin","26 Cards")
-        )
-    }
+
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -36,7 +24,7 @@ fun DeckColumn(
         itemsIndexed(decks){index , deck ->
             DeckItem(
                 deck = deck,
-                onDeckClick = onDeckClick
+                onDeckClick = { onDeckClick(deck) }
             )
         }
     }

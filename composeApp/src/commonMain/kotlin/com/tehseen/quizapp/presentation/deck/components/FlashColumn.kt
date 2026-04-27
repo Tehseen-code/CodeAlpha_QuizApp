@@ -15,16 +15,10 @@ import androidx.compose.ui.unit.dp
 
 @Preview(showSystemUi = true)
 @Composable
-fun FlashColumn(){
-    val flashes = remember {
-        mutableStateListOf(
-            FlashCard("What is the capital of France?", "Paris"),
-            FlashCard("What is the largest planet?", "Jupiter"),
-            FlashCard("What is the largest country?", "Russia"),
-            FlashCard("What is the highest mountain?", "Mount Everest"),
-            FlashCard("What is the smallest country?", "Vatican City"),
-        )
-    }
+fun FlashColumn(
+    flashes : List<FlashCard>
+){
+
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp)

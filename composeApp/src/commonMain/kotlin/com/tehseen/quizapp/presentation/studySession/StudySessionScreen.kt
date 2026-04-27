@@ -10,17 +10,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.tehseen.quizapp.presentation.delete.DeleteCard
 import com.tehseen.quizapp.presentation.studySession.components.FlashcardComponent
 import com.tehseen.quizapp.presentation.studySession.components.Header
 import com.tehseen.quizapp.presentation.studySession.components.ProgressBar
 import com.tehseen.quizapp.presentation.studySession.components.ShowAnswerButton
+import com.tehseen.quizapp.presentation.studySession.presentation.SessionUiState
 
 @Preview(showSystemUi = true)
 @Composable
 fun StudySessionScreen(
+    state: SessionUiState,
     onAddClick : () -> Unit ,
     onEditClick : () -> Unit ,
-    onDeleteClick : () -> Unit
+    onDeleteClick : () -> Unit,
+    onCancelDelete: () -> Unit,
+    onConfirmDelete: () -> Unit,
 ){
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -38,5 +43,12 @@ fun StudySessionScreen(
             onEditClick = onEditClick,
             onDeleteClick = onDeleteClick
         )
+        if (state.showDeleteDialog){
+            DeleteCard(
+                onDismissRequest =onCancelDelete ,
+                onCancel =onCancelDelete ,
+                onDelete = onConfirmDelete
+            )
+        }
     }
 }

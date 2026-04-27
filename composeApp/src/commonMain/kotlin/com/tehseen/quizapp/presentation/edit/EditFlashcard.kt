@@ -13,10 +13,14 @@ import androidx.compose.ui.unit.dp
 import com.tehseen.quizapp.presentation.edit.components.Header
 import com.tehseen.quizapp.presentation.edit.components.QandA
 import com.tehseen.quizapp.presentation.edit.components.UpdateButton
+import com.tehseen.quizapp.presentation.edit.presentation.EditUiState
 
 @Preview(showSystemUi = true)
 @Composable
-fun EditFlashcard(){
+fun EditFlashcard(
+    state : EditUiState,
+    onUpdateClick : () -> Unit
+){
     Column(
         modifier = Modifier.fillMaxSize()
             .padding(16.dp)
@@ -24,8 +28,12 @@ fun EditFlashcard(){
     ){
         Header()
         Spacer(modifier = Modifier.height(16.dp))
-        QandA()
+        QandA(
+            state = state
+        )
         Spacer(modifier = Modifier.weight(1f))
-        UpdateButton()
+        UpdateButton(
+            onUpdateClick = onUpdateClick
+        )
     }
 }
