@@ -4,13 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.tehseen.quizapp.presentation.add.AddScreen
-import com.tehseen.quizapp.presentation.deck.DeckScreen
-import com.tehseen.quizapp.presentation.delete.DeleteCard
-import com.tehseen.quizapp.presentation.edit.EditFlashcard
-import com.tehseen.quizapp.presentation.home.HomeScreen
+import com.tehseen.quizapp.presentation.add.AddRoute
+import com.tehseen.quizapp.presentation.deck.DeckRoute
+import com.tehseen.quizapp.presentation.edit.EditRoute
+import com.tehseen.quizapp.presentation.home.HomeRoute
 import com.tehseen.quizapp.presentation.splash.SplashScreen
-import com.tehseen.quizapp.presentation.studySession.StudySessionScreen
+import com.tehseen.quizapp.presentation.studySession.SessionRoute
 
 @Composable
 actual fun NavGraph() {
@@ -32,45 +31,47 @@ actual fun NavGraph() {
             )
         }
         composable("home"){
-            HomeScreen(
-                onAddClick = {
+            HomeRoute(
+                onNavigateToAdd ={
                     navController.navigate("deck")
                 },
-                onDeckClick = {
+                onNavigateToDeck = {
                     navController.navigate("studySession")
                 }
             )
         }
         composable("deck"){
-            DeckScreen(
-                onSaveDeckClick = {
+            DeckRoute(
+                onNavigateToHome = {
                     navController.navigate("home")
                 }
             )
         }
         composable("studySession"){
-            StudySessionScreen(
-                onAddClick = {
+            SessionRoute(
+                onNavigateToAdd = {
                     navController.navigate("addScreen")
                 },
-                onEditClick = {
+                onNavigateToEdit = {
                     navController.navigate("editScreen")
-                },
-                onDeleteClick = {
-                    navController.navigate("deleteScreen")
                 }
             )
         }
         composable("addScreen"){
-            AddScreen()
+            AddRoute(
+                onNavigateToSession = {
+                    navController.navigate("studySession")
+
+                }
+            )
         }
         composable("editScreen"){
-            EditFlashcard()
+            EditRoute(
+                onNavigateToSession = {
+                    navController.navigate("studySession")
+                }
+            )
         }
-        composable("deleteScreen"){
-            DeleteCard()
-        }
-
 
     }
 }

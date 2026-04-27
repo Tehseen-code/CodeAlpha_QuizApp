@@ -31,12 +31,12 @@ import androidx.compose.ui.unit.dp
 @Preview(showSystemUi = true)
 @Composable
 fun DeleteCard(
-    /*onDismissRequest: () -> Unit,
+    onDismissRequest: () -> Unit,
     onCancel: () -> Unit,
-    onDelete: () -> Unit*/
+    onDelete: () -> Unit
 ) {
     AlertDialog(
-        onDismissRequest = {},
+        onDismissRequest =onDismissRequest,
         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
         shape = RoundedCornerShape(24.dp),
         containerColor = Color.White,
@@ -88,7 +88,7 @@ fun DeleteCard(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Button(
-                    onClick = {},
+                    onClick = onCancel,
                     modifier = Modifier.fillMaxWidth().height(50.dp),
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
@@ -106,7 +106,7 @@ fun DeleteCard(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Button(
-                    onClick = {},
+                    onClick = onDelete,
                     modifier = Modifier.fillMaxWidth().height(50.dp),
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(

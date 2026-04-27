@@ -14,9 +14,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SaveButton(){
+fun SaveButton(
+    onSaveCardClick : () -> Unit
+){
     Button(
-        onClick = { },
+        onClick = onSaveCardClick,
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp),

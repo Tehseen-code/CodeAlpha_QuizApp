@@ -14,9 +14,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun UpdateButton(){
+fun UpdateButton(
+    onUpdateClick : () -> Unit
+){
     Button(
-        onClick = { },
+        onClick =onUpdateClick,
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp),

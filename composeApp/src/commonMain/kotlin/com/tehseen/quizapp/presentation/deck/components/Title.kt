@@ -22,7 +22,9 @@ import androidx.compose.ui.unit.dp
 
 @Preview(showSystemUi = true)
 @Composable
-fun Title(){
+fun Title(
+
+){
     Column(
         modifier = Modifier.fillMaxWidth()
     ){

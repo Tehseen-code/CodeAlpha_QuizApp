@@ -14,10 +14,12 @@ import com.tehseen.quizapp.presentation.deck.components.FlashColumn
 import com.tehseen.quizapp.presentation.deck.components.Header
 import com.tehseen.quizapp.presentation.deck.components.SaveDeckButton
 import com.tehseen.quizapp.presentation.deck.components.Title
+import com.tehseen.quizapp.presentation.deck.presentation.DeckUiState
 
 @Preview(showSystemUi = true)
 @Composable
 fun DeckScreen(
+    state: DeckUiState,
     onSaveDeckClick : () -> Unit
 ){
     Column(
@@ -30,7 +32,9 @@ fun DeckScreen(
         Title()
         Spacer(modifier = Modifier.height(10.dp))
         Column(modifier = Modifier.weight(1f)){
-            FlashColumn()
+            FlashColumn(
+                flashes = state.flashCards
+            )
         }
         SaveDeckButton(
             onSaveDeckClick = onSaveDeckClick
