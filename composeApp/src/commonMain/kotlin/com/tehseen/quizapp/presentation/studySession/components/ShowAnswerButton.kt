@@ -34,14 +34,18 @@ import androidx.compose.ui.unit.dp
 fun ShowAnswerButton(
     onAddClick : () -> Unit ,
     onEditClick : () -> Unit ,
-    onDeleteClick : () -> Unit
+    onDeleteClick : () -> Unit,
+    onShowAnswerClick: () -> Unit,
+    onPreviousClick: () -> Unit,
+    onNextClick: () -> Unit
 ){
+
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Button(
-            onClick = { },
+            onClick = onShowAnswerClick,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp),
@@ -68,7 +72,7 @@ fun ShowAnswerButton(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = {  }) {
+            IconButton(onClick = onPreviousClick) {
                 Icon(
                     imageVector = Icons.Default.ArrowBackIosNew,
                     contentDescription = "Previous",
@@ -109,7 +113,7 @@ fun ShowAnswerButton(
                 }
             }
 
-            IconButton(onClick = { }) {
+            IconButton(onClick = onNextClick) {
                 Icon(
                     imageVector = Icons.Default.ArrowForwardIos,
                     contentDescription = "Next",

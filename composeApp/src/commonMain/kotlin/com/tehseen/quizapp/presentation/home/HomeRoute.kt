@@ -4,19 +4,35 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.tehseen.quizapp.data.local.QuizDao
 import com.tehseen.quizapp.presentation.home.presentation.HomeViewModel
 import com.tehseen.quizapp.presentation.navigation.Screen
 
 @Composable
 fun HomeRoute(
-    viewModel: HomeViewModel = viewModel(),
+    dao: QuizDao,
     onNavigateToAdd: (Screen) -> Unit,
-    onNavigateToDeck: (Screen) -> Unit,
-){
+    onNavigateToDeck: (Long) -> Unit
+) {
+    val viewModel: HomeViewModel = viewModel(
+        factory = viewModelFactory {
+            initializer {
+                HomeViewModel(dao)
+            }
+        }
+    )
+
     val state by viewModel.uiState.collectAsState()
+
     HomeScreen(
-        onAddClick = {onNavigateToAdd(Screen.DECK)},
-        onDeckClick = {onNavigateToDeck(Screen.STUDY_SESSION)},
-        state = state
+        state = state,
+        onAddClick = {
+            onNavigateToAdd(Screen.DECK)
+        },
+        onDeckClick = { deckId ->
+            onNavigateToDeck(deckId)
+        }
     )
 }

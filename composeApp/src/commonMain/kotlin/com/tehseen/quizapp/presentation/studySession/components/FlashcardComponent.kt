@@ -26,10 +26,12 @@ import androidx.compose.ui.unit.sp
 @Preview(showSystemUi = true)
 @Composable
 fun FlashcardComponent(
-    /*label: String, // e.g., "QUESTION" or "ANSWER"
-    content: String, // The actual text
-    modifier: Modifier = Modifier*/
+    question: String,
+    answer: String,
+    showAnswer: Boolean
 ) {
+    val text = if (showAnswer) answer else question
+    val label = if (showAnswer) "ANSWER" else "QUESTION"
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -46,7 +48,7 @@ fun FlashcardComponent(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "question".uppercase(),
+                text = label,
                 style = MaterialTheme.typography.labelLarge,
                 color = Color(0xFF6495ED),
                 fontWeight = FontWeight.Bold,
@@ -56,7 +58,7 @@ fun FlashcardComponent(
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
-                text = "What is the capital of France?",
+                text = text,
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.ExtraBold,
                 textAlign = TextAlign.Center,

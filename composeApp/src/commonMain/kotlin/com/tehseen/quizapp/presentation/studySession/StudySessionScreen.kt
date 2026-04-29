@@ -26,7 +26,11 @@ fun StudySessionScreen(
     onDeleteClick : () -> Unit,
     onCancelDelete: () -> Unit,
     onConfirmDelete: () -> Unit,
+    onToggleAnswer: () -> Unit,
+    onPrevious: () -> Unit,
+    onNext: () -> Unit
 ){
+    val card = state.currentCard
     Column(
         modifier = Modifier.fillMaxWidth()
             .padding(16.dp)
@@ -34,14 +38,24 @@ fun StudySessionScreen(
     ){
         Header()
         Spacer(modifier = Modifier.height(20.dp))
-        ProgressBar()
+        ProgressBar(
+            currentIndex = state.currentIndex,
+            totalCount = state.cards.size
+        )
         Spacer(modifier = Modifier.height(20.dp))
-        FlashcardComponent()
+        FlashcardComponent(
+            question = card?.question.orEmpty(),
+            answer = card?.answer.orEmpty(),
+            showAnswer = state.showAnswer
+        )
         Spacer(modifier = Modifier.height(20.dp))
         ShowAnswerButton(
             onAddClick = onAddClick,
             onEditClick = onEditClick,
-            onDeleteClick = onDeleteClick
+            onDeleteClick = onDeleteClick,
+            onShowAnswerClick = onToggleAnswer,
+            onPreviousClick = onPrevious,
+            onNextClick = onNext,
         )
         if (state.showDeleteDialog){
             DeleteCard(

@@ -1,5 +1,6 @@
 package com.tehseen.quizapp.presentation.deck.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,59 +17,65 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.tehseen.quizapp.presentation.deck.presentation.FlashCardUi
 
-@Preview(showSystemUi = true)
 @Composable
 fun FlashItem(
-    flashCard: FlashCard
-){
-    /*var question by remember { mutableStateOf("") }
-    var answer by remember { mutableStateOf("") }*/
+    index: Int,
+    flashCard: FlashCardUi,
+    onQuestionChange: (String) -> Unit,
+    onAnswerChange: (String) -> Unit,
+    onDeleteClick: (() -> Unit)? = null
+) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(8.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
         )
-    ){
+    ) {
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(12.dp)
-        ){
+        ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
-            ){
+            ) {
                 Text(
-                    text = "CARD #1",
+                    text = "CARD #${index + 1}",
                     style = MaterialTheme.typography.bodyMedium,
                     color = Color.Gray
                 )
+
                 Icon(
                     imageVector = Icons.Outlined.Delete,
                     contentDescription = "Delete",
-                    tint = Color.Red
+                    tint = Color.Red,
+                    modifier = Modifier.clickable {
+                        onDeleteClick?.invoke()
+                    }
                 )
             }
+
             Spacer(modifier = Modifier.height(6.dp))
+
             OutlinedTextField(
                 value = flashCard.question,
-                onValueChange = {flashCard.question=it},
+                onValueChange = onQuestionChange,
                 label = { Text("Question") },
                 modifier = Modifier.fillMaxWidth()
             )
+
             Spacer(modifier = Modifier.height(6.dp))
+
             OutlinedTextField(
                 value = flashCard.answer,
-                onValueChange = {flashCard.answer=it},
+                onValueChange = onAnswerChange,
                 label = { Text("Answer") },
                 maxLines = 4,
                 modifier = Modifier.fillMaxWidth()

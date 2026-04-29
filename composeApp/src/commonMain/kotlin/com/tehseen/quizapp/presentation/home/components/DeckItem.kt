@@ -57,7 +57,7 @@ fun DeckItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = deck.count,
+                    text = deck.info,
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Icon(
