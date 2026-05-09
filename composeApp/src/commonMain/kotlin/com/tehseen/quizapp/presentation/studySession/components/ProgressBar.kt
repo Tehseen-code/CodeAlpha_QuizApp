@@ -28,11 +28,15 @@ import androidx.compose.ui.unit.sp
 
 @Preview(showSystemUi = true)
 @Composable
-fun ProgressBar(){
-    var currentIndex by remember { mutableStateOf(1) }
-    var totalCount by remember { mutableStateOf(10) }
-
-    val progress = if (totalCount > 0) currentIndex.toFloat() / totalCount else 0f
+fun ProgressBar(
+    currentIndex: Int,
+    totalCount: Int
+){
+    val progress =
+        if (totalCount > 0)
+            (currentIndex + 1).toFloat() / totalCount
+        else 0f
+    //val progress = if (totalCount > 0) currentIndex.toFloat() / totalCount else 0f
 
     Column(modifier = Modifier.fillMaxWidth().padding( 16.dp)) {
          Row(
@@ -49,7 +53,7 @@ fun ProgressBar(){
                 )
 
                 Text(
-                    text = "$currentIndex of $totalCount",
+                    text = "${currentIndex + 1} of $totalCount",
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.SemiBold,
                     color = Color(0xFF3F51B5)

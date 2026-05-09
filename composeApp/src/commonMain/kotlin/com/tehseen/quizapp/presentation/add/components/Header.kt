@@ -16,7 +16,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Header(){
+fun Header(
+    onBackClick: () -> Unit
+){
     Box(
         modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
@@ -32,7 +34,9 @@ fun Header(){
             imageVector = Icons.Default.ArrowBack,
             contentDescription = null,
             modifier = Modifier.align(Alignment.CenterStart)
-                .clickable { }
+                .clickable {
+                    onBackClick()
+                }
                 .size(16.dp)
 
         )

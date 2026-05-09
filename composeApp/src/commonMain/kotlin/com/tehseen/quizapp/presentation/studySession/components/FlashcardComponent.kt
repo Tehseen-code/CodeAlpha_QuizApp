@@ -1,5 +1,7 @@
 package com.tehseen.quizapp.presentation.studySession.components
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,9 +16,11 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,14 +30,26 @@ import androidx.compose.ui.unit.sp
 @Preview(showSystemUi = true)
 @Composable
 fun FlashcardComponent(
-    /*label: String, // e.g., "QUESTION" or "ANSWER"
-    content: String, // The actual text
-    modifier: Modifier = Modifier*/
+    question: String,
+    answer: String,
+    showAnswer: Boolean
 ) {
+    val rotation by animateFloatAsState(
+        targetValue = if (showAnswer) 180f else 0f,
+        animationSpec = tween( 500),
+        label = "flip"
+    )
+    val text = if (rotation<=90f) question else answer
+    val label = if (rotation<=90f) "QUESTION" else "ANSWER"
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .aspectRatio(0.8f),
+            .aspectRatio(0.8f)
+            .graphicsLayer{
+                rotationY = rotation
+                cameraDistance = 12f * density
+            }
+        ,
         shape = RoundedCornerShape(32.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
@@ -41,12 +57,18 @@ fun FlashcardComponent(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(24.dp),
+                .padding(24.dp)
+                .graphicsLayer{
+                    if (rotation >= 90f){
+                        rotationY = 180f
+                    }
+                }
+            ,
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "question".uppercase(),
+                text = label,
                 style = MaterialTheme.typography.labelLarge,
                 color = Color(0xFF6495ED),
                 fontWeight = FontWeight.Bold,
@@ -56,12 +78,12 @@ fun FlashcardComponent(
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
-                text = "What is the capital of France?",
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.ExtraBold,
+                text = text,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
                 color = Color(0xFF1A1A1A),
-                lineHeight = 36.sp
+                lineHeight = 22.sp
             )
         }
     }

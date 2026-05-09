@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tehseen.quizapp.presentation.deck.components.FlashColumn
 import com.tehseen.quizapp.presentation.deck.components.Header
@@ -16,28 +15,49 @@ import com.tehseen.quizapp.presentation.deck.components.SaveDeckButton
 import com.tehseen.quizapp.presentation.deck.components.Title
 import com.tehseen.quizapp.presentation.deck.presentation.DeckUiState
 
-@Preview(showSystemUi = true)
 @Composable
 fun DeckScreen(
     state: DeckUiState,
-    onSaveDeckClick : () -> Unit
-){
+    onTitleChange: (String) -> Unit,
+    onQuestionChange: (Int, String) -> Unit,
+    onAnswerChange: (Int, String) -> Unit,
+    onAddCardClick: () -> Unit,
+    onDeleteCardClick: (Int) -> Unit,
+    onSaveDeckClick: () -> Unit,
+    onBackClick: () -> Unit
+) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .padding(16.dp)
             .statusBarsPadding()
-    ){
-        Header()
+    ) {
+        Header(
+            onBackClick = onBackClick
+        )
+
         Spacer(modifier = Modifier.height(16.dp))
-        Title()
+
+        Title(
+            value = state.deckTitle,
+            onValueChange = onTitleChange,
+            cardCount = state.flashCards.size
+        )
+
         Spacer(modifier = Modifier.height(10.dp))
-        Column(modifier = Modifier.weight(1f)){
+
+        Column(modifier = Modifier.weight(1f)) {
             FlashColumn(
-                flashes = state.flashCards
+                flashes = state.flashCards,
+                onQuestionChange = onQuestionChange,
+                onAnswerChange = onAnswerChange,
+                onDeleteClick = onDeleteCardClick
             )
         }
+
         SaveDeckButton(
-            onSaveDeckClick = onSaveDeckClick
+            onSaveDeckClick = onSaveDeckClick,
+            onAddCardClick = onAddCardClick
         )
     }
 }

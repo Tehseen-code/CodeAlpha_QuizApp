@@ -20,17 +20,24 @@ import com.tehseen.quizapp.presentation.add.presentation.AddUiState
 @Composable
 fun AddScreen(
     state: AddUiState,
-    onSaveCardClick : () -> Unit
+    onSaveCardClick : () -> Unit,
+    onQuestionChange : (String) -> Unit,
+    onAnswerChange : (String) -> Unit,
+    onBackClick : () -> Unit
 ){
     Column(
         modifier = Modifier.fillMaxSize()
             .padding(16.dp)
             .statusBarsPadding()
     ){
-        Header()
+        Header(
+            onBackClick = onBackClick
+        )
         Spacer(modifier = Modifier.height(16.dp))
         QuestionAnswer(
-            state = state
+            state = state,
+            onQuestionChange = onQuestionChange,
+            onAnswerChange = onAnswerChange
         )
         Spacer(modifier = Modifier.weight(1f))
         SaveButton(

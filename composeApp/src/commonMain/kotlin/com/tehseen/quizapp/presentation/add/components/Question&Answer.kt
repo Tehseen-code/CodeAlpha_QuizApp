@@ -17,23 +17,25 @@ import com.tehseen.quizapp.presentation.add.presentation.AddUiState
 
 @Composable
 fun QuestionAnswer(
-    state : AddUiState
-){
-
-
+    state: AddUiState,
+    onQuestionChange: (String) -> Unit,
+    onAnswerChange: (String) -> Unit
+) {
     Column(
         modifier = Modifier.fillMaxWidth()
-    ){
+    ) {
         OutlinedTextField(
             value = state.question,
-            onValueChange = {state.question=it},
+            onValueChange = onQuestionChange,
             label = { Text("Question") },
             modifier = Modifier.fillMaxWidth()
         )
+
         Spacer(modifier = Modifier.height(6.dp))
+
         OutlinedTextField(
             value = state.answer,
-            onValueChange = {state.answer=it},
+            onValueChange = onAnswerChange,
             label = { Text("Answer") },
             maxLines = 4,
             modifier = Modifier.fillMaxWidth()

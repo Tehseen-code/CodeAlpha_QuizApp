@@ -33,7 +33,7 @@ fun NoFlashCard(){
             tint = Color.Gray,
             modifier = Modifier.size(120.dp)
         )
-        Spacer(modifier = Modifier.size(100.dp))
+        Spacer(modifier = Modifier.size(70.dp))
         Text(
             text = "No flashCards yet",
             style = MaterialTheme.typography.bodyMedium,

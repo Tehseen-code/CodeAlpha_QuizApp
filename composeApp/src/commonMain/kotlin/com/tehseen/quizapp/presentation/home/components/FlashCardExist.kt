@@ -8,24 +8,27 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-@Preview(showSystemUi = true)
 @Composable
 fun FlashCardExist(
     decks: List<Deck>,
-    onDeckClick: (Deck) -> Unit
-){
+    onDeckClick: (Long) -> Unit,
+    onDeckLongClick: (Long) -> Unit
+) {
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .background(Color.White)
-    ){
+    ) {
         Info()
+
         Spacer(modifier = Modifier.height(16.dp))
+
         DeckColumn(
+            decks = decks,
             onDeckClick = onDeckClick,
-            decks = decks
+            onDeckLongClick = onDeckLongClick
         )
     }
 }
