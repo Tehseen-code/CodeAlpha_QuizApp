@@ -13,22 +13,21 @@ import com.tehseen.quizapp.presentation.edit.presentation.EditUiState
 
 @Composable
 fun QandA(
-    state: EditUiState
+    state: EditUiState,
+    onQuestionChange: (String) -> Unit,
+    onAnswerChange: (String) -> Unit
 ){
-
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    ){
+    Column(modifier = Modifier.fillMaxWidth()){
         OutlinedTextField(
             value = state.question,
-            onValueChange = {state.question=it},
+            onValueChange = onQuestionChange, // ViewModel ka function call hoga
             label = { Text("Question") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(6.dp))
         OutlinedTextField(
             value = state.answer,
-            onValueChange = {state.answer=it},
+            onValueChange = onAnswerChange, // ViewModel ka function call hoga
             label = { Text("Answer") },
             maxLines = 4,
             modifier = Modifier.fillMaxWidth()

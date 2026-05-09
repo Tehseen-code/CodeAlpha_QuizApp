@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.tehseen.quizapp.presentation.delete.DeleteCard
 import com.tehseen.quizapp.presentation.home.components.FlashCardExist
 import com.tehseen.quizapp.presentation.home.components.Header
 import com.tehseen.quizapp.presentation.home.components.NoFlashCard
@@ -25,7 +26,10 @@ import com.tehseen.quizapp.presentation.home.presentation.HomeUiState
 fun HomeScreen(
     state: HomeUiState,
     onAddClick: () -> Unit,
-    onDeckClick: (Long) -> Unit
+    onDeckClick: (Long) -> Unit,
+    onDeckLongClick: (Long) -> Unit,
+    onDeleteConfirm: () -> Unit,
+    onDeleteCancel: () -> Unit
 ) {
     Scaffold(
         modifier = Modifier
@@ -49,25 +53,32 @@ fun HomeScreen(
             }
         }
     ) { paddingValues ->
+
         Box(
             modifier = Modifier.padding(paddingValues)
         ) {
-            when {
-                state.decks.isEmpty() -> {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        NoFlashCard()
-                    }
-                }
 
-                else -> {
-                    FlashCardExist(
-                        decks = state.decks,
-                        onDeckClick = onDeckClick
-                    )
+            if (state.decks.isEmpty()) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    NoFlashCard()
                 }
+            } else {
+                FlashCardExist(
+                    decks = state.decks,
+                    onDeckClick = onDeckClick,
+                    onDeckLongClick = onDeckLongClick
+                )
+            }
+
+            if (state.showDeleteDialog) {
+                DeleteCard(
+                    onDismissRequest = onDeleteCancel,
+                    onCancel = onDeleteCancel,
+                    onDelete = onDeleteConfirm
+                )
             }
         }
     }

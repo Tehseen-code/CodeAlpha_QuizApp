@@ -33,6 +33,15 @@ fun HomeRoute(
         },
         onDeckClick = { deckId ->
             onNavigateToDeck(deckId)
+        },
+        onDeckLongClick = { deckId ->
+            viewModel.onDeckLongPress(deckId)
+        },
+        onDeleteConfirm = {
+            viewModel.deleteDeck()
+        },
+        onDeleteCancel = {
+            viewModel.hideDeleteDialog()
         }
     )
 }

@@ -58,6 +58,9 @@ actual fun NavGraph() {
                 dao = dao,
                 onNavigateToHome = {
                     navController.popBackStack()
+                },
+                onBackClick = {
+                    navController.popBackStack()
                 }
             )
         }
@@ -70,26 +73,45 @@ actual fun NavGraph() {
             SessionRoute(
                 dao = dao,
                 deckId = deckId,
-                onNavigateToAdd = {
-                    navController.navigate("addScreen")
+                onNavigateToAdd = { navController.navigate("addScreen/$deckId") },
+                onNavigateToEdit = { cardId ->
+                    // Ab ye function cardId mangega
+                    navController.navigate("editScreen/$cardId")
                 },
-                onNavigateToEdit = {
-                    navController.navigate("editScreen")
-                }
-            )
-        }
-
-        composable("addScreen") {
-            AddRoute(
-                onNavigateToSession = {
+                onBackClick = {
                     navController.popBackStack()
                 }
             )
         }
 
-        composable("editScreen") {
-            EditRoute(
+        composable("addScreen/{deckId}") { backStackEntry ->
+            val deckId = backStackEntry.arguments?.getString("deckId")?.toLong() ?: 0L
+
+            AddRoute(
+                deckId = deckId,
+                dao = dao,
                 onNavigateToSession = {
+                    navController.popBackStack()
+                },
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable("editScreen/{cardId}") { backStackEntry ->
+            // URL se cardId nikalna
+            val cardId = backStackEntry.arguments
+                ?.getString("cardId")
+                ?.toLongOrNull() ?: 0L
+
+            EditRoute(
+                dao = dao,
+                cardId = cardId,
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onBackClick = {
                     navController.popBackStack()
                 }
             )

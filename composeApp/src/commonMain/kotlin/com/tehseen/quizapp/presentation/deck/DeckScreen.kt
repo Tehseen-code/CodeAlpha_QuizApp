@@ -23,7 +23,8 @@ fun DeckScreen(
     onAnswerChange: (Int, String) -> Unit,
     onAddCardClick: () -> Unit,
     onDeleteCardClick: (Int) -> Unit,
-    onSaveDeckClick: () -> Unit
+    onSaveDeckClick: () -> Unit,
+    onBackClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -31,7 +32,9 @@ fun DeckScreen(
             .padding(16.dp)
             .statusBarsPadding()
     ) {
-        Header()
+        Header(
+            onBackClick = onBackClick
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 

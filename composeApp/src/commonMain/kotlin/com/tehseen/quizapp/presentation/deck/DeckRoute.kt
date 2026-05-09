@@ -12,7 +12,8 @@ import com.tehseen.quizapp.presentation.deck.presentation.DeckViewModel
 @Composable
 fun DeckRoute(
     dao: QuizDao,
-    onNavigateToHome: () -> Unit
+    onNavigateToHome: () -> Unit,
+    onBackClick: () -> Unit
 ) {
     val viewModel: DeckViewModel = viewModel(
         factory = viewModelFactory {
@@ -41,6 +42,7 @@ fun DeckRoute(
             viewModel.saveDeck {
                 onNavigateToHome()
             }
-        }
+        },
+        onBackClick = onBackClick
     )
 }

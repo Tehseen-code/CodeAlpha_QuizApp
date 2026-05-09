@@ -19,19 +19,30 @@ import com.tehseen.quizapp.presentation.edit.presentation.EditUiState
 @Composable
 fun EditFlashcard(
     state : EditUiState,
-    onUpdateClick : () -> Unit
+    onUpdateClick : () -> Unit,
+    onQuestionChange: (String) -> Unit,
+    onAnswerChange: (String) -> Unit  ,
+    onBackClick: () -> Unit
 ){
     Column(
         modifier = Modifier.fillMaxSize()
             .padding(16.dp)
             .statusBarsPadding()
     ){
-        Header()
-        Spacer(modifier = Modifier.height(16.dp))
-        QandA(
-            state = state
+        Header(
+            onBackClick = onBackClick
         )
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Yahan callbacks pass karein
+        QandA(
+            state = state,
+            onQuestionChange = onQuestionChange,
+            onAnswerChange = onAnswerChange
+        )
+
         Spacer(modifier = Modifier.weight(1f))
+
         UpdateButton(
             onUpdateClick = onUpdateClick
         )

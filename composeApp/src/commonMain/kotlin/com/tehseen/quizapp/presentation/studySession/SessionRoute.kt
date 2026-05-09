@@ -14,7 +14,8 @@ fun SessionRoute(
     dao: QuizDao,
     deckId: Long,
     onNavigateToAdd: () -> Unit,
-    onNavigateToEdit: () -> Unit
+    onNavigateToEdit: (Long) -> Unit, //Yahan Long argument add karein
+    onBackClick: () -> Unit
 ) {
     val viewModel: SessionViewModel = viewModel(
         factory = viewModelFactory {
@@ -29,12 +30,19 @@ fun SessionRoute(
     StudySessionScreen(
         state = state,
         onAddClick = onNavigateToAdd,
-        onEditClick = onNavigateToEdit,
+        // Yahan state se current card ki ID pass karein
+        onEditClick = {
+            val currentCardId = state.cards.getOrNull(state.currentIndex)?.id
+            if (currentCardId != null) {
+                onNavigateToEdit(currentCardId)
+            }
+        },
         onDeleteClick = viewModel::showDialog,
         onCancelDelete = viewModel::hideDeleteDialog,
         onConfirmDelete = viewModel::deleteCurrentCard,
         onToggleAnswer = viewModel::toggleAnswer,
         onPrevious = viewModel::previousCard,
-        onNext = viewModel::nextCard
+        onNext = viewModel::nextCard,
+        onBackClick = onBackClick
     )
 }

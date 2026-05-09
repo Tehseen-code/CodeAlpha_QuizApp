@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 @Preview(showSystemUi = true)
 @Composable
 fun ShowAnswerButton(
+    showAnswer: Boolean,
     onAddClick : () -> Unit ,
     onEditClick : () -> Unit ,
     onDeleteClick : () -> Unit,
@@ -44,6 +45,11 @@ fun ShowAnswerButton(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
+        val buttonText = if (showAnswer){
+            "Hide Answer"
+        }else{
+            "Show Answer"
+        }
         Button(
             onClick = onShowAnswerClick,
             modifier = Modifier
@@ -59,7 +65,7 @@ fun ShowAnswerButton(
             )
         ) {
             Text(
-                text = "Show Answer",
+                text = buttonText,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )

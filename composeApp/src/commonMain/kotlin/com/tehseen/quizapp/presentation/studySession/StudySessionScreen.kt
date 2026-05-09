@@ -21,14 +21,15 @@ import com.tehseen.quizapp.presentation.studySession.presentation.SessionUiState
 @Composable
 fun StudySessionScreen(
     state: SessionUiState,
-    onAddClick : () -> Unit ,
-    onEditClick : () -> Unit ,
+    onAddClick : () -> Unit,
+    onEditClick : () -> Unit,
     onDeleteClick : () -> Unit,
     onCancelDelete: () -> Unit,
     onConfirmDelete: () -> Unit,
     onToggleAnswer: () -> Unit,
     onPrevious: () -> Unit,
-    onNext: () -> Unit
+    onNext: () -> Unit,
+    onBackClick: () -> Unit
 ){
     val card = state.currentCard
     Column(
@@ -36,7 +37,9 @@ fun StudySessionScreen(
             .padding(16.dp)
             .statusBarsPadding()
     ){
-        Header()
+        Header(
+            onBackClick = onBackClick
+        )
         Spacer(modifier = Modifier.height(20.dp))
         ProgressBar(
             currentIndex = state.currentIndex,
@@ -56,6 +59,7 @@ fun StudySessionScreen(
             onShowAnswerClick = onToggleAnswer,
             onPreviousClick = onPrevious,
             onNextClick = onNext,
+            showAnswer =state.showAnswer,
         )
         if (state.showDeleteDialog){
             DeleteCard(

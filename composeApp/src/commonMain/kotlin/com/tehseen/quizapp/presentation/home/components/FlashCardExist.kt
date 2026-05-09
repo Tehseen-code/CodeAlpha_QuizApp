@@ -13,7 +13,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun FlashCardExist(
     decks: List<Deck>,
-    onDeckClick: (Long) -> Unit
+    onDeckClick: (Long) -> Unit,
+    onDeckLongClick: (Long) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -26,7 +27,8 @@ fun FlashCardExist(
 
         DeckColumn(
             decks = decks,
-            onDeckClick = onDeckClick
+            onDeckClick = onDeckClick,
+            onDeckLongClick = onDeckLongClick
         )
     }
 }

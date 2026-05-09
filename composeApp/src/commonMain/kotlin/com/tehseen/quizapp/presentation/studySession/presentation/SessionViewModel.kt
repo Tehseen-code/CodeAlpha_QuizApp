@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tehseen.quizapp.data.local.QuizDao
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -18,15 +17,30 @@ class SessionViewModel(
     val uiState = _uiState.asStateFlow()
 
     init {
-        loadCards()
+        observeCards()
     }
 
-    private fun loadCards() {
+    /**
+     * Database ko observe karne ka tareeqa.
+     * Jab bhi Room mein data change hoga, ye block auto-run hoga.
+     */
+    private fun observeCards() {
         viewModelScope.launch {
-            val cards = dao.getFlashCardsForDeck(deckId)
+            // Room hamesha updated list "push" karega
+            dao.getFlashCardsForDeck(deckId).collect { updatedCards ->
+                _uiState.update { state ->
+                    // Index ko validate karein taake delete ke baad app crash na ho
+                    val validatedIndex = if (updatedCards.isEmpty()) {
+                        0
+                    } else {
+                        state.currentIndex.coerceIn(0, updatedCards.lastIndex)
+                    }
 
-            _uiState.update {
-                it.copy(cards = cards)
+                    state.copy(
+                        cards = updatedCards,
+                        currentIndex = validatedIndex,
+                    )
+                }
             }
         }
     }
@@ -58,6 +72,7 @@ class SessionViewModel(
             } else it
         }
     }
+
     fun showDialog() {
         _uiState.update {
             it.copy(showDeleteDialog = true)
@@ -71,6 +86,15 @@ class SessionViewModel(
     }
 
     fun deleteCurrentCard() {
-        hideDeleteDialog()
+        val current = _uiState.value.currentCard ?: return
+
+        viewModelScope.launch {
+            // Sirf database se delete karein
+            dao.deleteFlashCardById(current.id)
+
+            // observeCards() khud hi updated list handle kar lega aur UI refresh kar dega
+            hideDeleteDialog()
+            _uiState.update { it.copy(showAnswer = false) }
+        }
     }
 }

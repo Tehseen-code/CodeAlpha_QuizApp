@@ -18,7 +18,9 @@ import androidx.compose.ui.unit.dp
 
 @Preview(showSystemUi = true)
 @Composable
-fun Header(){
+fun Header(
+    onBackClick: () -> Unit
+){
     Box(
         modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
@@ -34,7 +36,7 @@ fun Header(){
             imageVector = Icons.Default.ArrowBack,
             contentDescription = null,
             modifier = Modifier.align(Alignment.CenterStart)
-                .clickable { }
+                .clickable { onBackClick() }
                 .size(16.dp)
 
         )
