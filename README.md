@@ -1,7 +1,9 @@
 # 📱 Flashcard Quiz App (CodeAlpha Internship - Task 1)
 
 A high-performance, cross-platform Flashcard Quiz Application built using **Kotlin Multiplatform (KMP)** and **Compose Multiplatform**. This app allows users to create study decks, manage flashcards, and conduct interactive study sessions with real-time data persistence.
+
 ---
+
 ## ✨ Features
 
 - **Dynamic Deck Management:** Create, view, and delete study decks.
@@ -20,11 +22,11 @@ A high-performance, cross-platform Flashcard Quiz Application built using **Kotl
 - **Database:** Room (Multiplatform)
 - **Architecture:** MVVM (Model-View-ViewModel)
 - **Asynchronous Programming:** Kotlin Coroutines & Flows
-- **Dependency Injection:** (If you used Koin, mention it here, otherwise leave it)
 
 ---
 
 ## 📸 Screenshots
+
 <img width="3807" height="1616" alt="QuizappUi" src="https://github.com/user-attachments/assets/f34d1ea9-cf8a-4d99-a4f2-a15a37fcd732" />
 
 ---
@@ -39,8 +41,19 @@ A high-performance, cross-platform Flashcard Quiz Application built using **Kotl
 
 ---
 
-## 🚀 Getting Started
+## 🧠 Technical Deep Dive: Multiplatform State Management
 
-1. Clone the repository:
-   ```bash
-   git clone [https://github.com/Tehseen-code/CodeAlpha_QuizApp.git](https://github.com/Tehseen-code/CodeAlpha_QuizApp.git)
+One of the core challenges in building this cross-platform application was managing the reactive UI state across both Android and iOS from a single codebase while using the Room Multiplatform database layer.
+
+### 1. The Reactive Flow Architecture
+To ensure real-time UI synchronization without thread blocking, data is exposed from the Room Data Access Object (DAO) as a cold asynchronous `Flow`. Inside the shared architecture layer, this stream is transformed into a hot execution state wrapper using the `stateIn` pipeline operator. This effectively decouples critical database transaction contexts from platform-specific UI lifecycle adjustments, such as device screen rotations on Android.
+
+```kotlin
+// Architectural pattern utilized for exposing reactive database states safely
+val uiState: StateFlow<DeckUiState> = repository.getAllDecks()
+    .map { decks -> DeckUiState.Success(decks) }
+    .stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = DeckUiState.Loading
+    )
